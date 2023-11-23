@@ -1,2 +1,2 @@
 # Estudo
-repositório para armazenar projetos de estudo
+repositório para armazenar projetos de estudo.

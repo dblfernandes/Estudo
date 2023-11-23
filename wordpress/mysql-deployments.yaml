@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment  #nome que vai aparecer no deployments
+spec:
+  replicas: 1 #por default o deployments possui uma replica. então essa definição de 1 é opcional
+  selector:
+    matchLabels:
+      app: mysql-deployment  #Essa propriedade serve para mapear a relação com outras configurações. Ex.: arquivo de deployments com o arquivo de services
+  template:
+    metadata:
+      labels:
+        app: mysql-deployment #utilizei os mesmos nomes para facilitar e não criar confusão.
+    spec: #especificações do container. configurações para subir o container
+      containers:
+      - name: mysql-image #nome da imagem
+        image: mysql:5.6 #imagem que vamos utilizar no dockerhub ou outro lugar
+        resources:
+          limits:
+            memory: "512Mi" #quantitativo de memória que o pod vai ter
+            cpu: "500m" #quantitativo de CPU em htz
+        ports:
+        - containerPort: 3306 #porta que o Pod "escuta"
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: wordpress-2020

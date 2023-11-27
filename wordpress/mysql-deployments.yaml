@@ -23,4 +23,19 @@ spec:
         - containerPort: 3306 #porta que o Pod "escuta"
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: wordpress-2020
+            #value: wordpress-2020 -> após configuração da secret não utilizamos mais dessa forma
+            valueFrom: #após configuração da secret no arquivo de configurações, vamos utilizar o valueFrom para acessá-las
+              secretKeyRef:
+                name: mysql-secret #o nome da secret é " metadata: name: mysql-secret"
+                key: password #a key foi configurada como "data: password" lá na secret
+        volumeMounts: #configurando os volumes que foram definidos em configuracoes
+          - name: mysql-volume #definindo um nome
+            mountPath: /var/lib/mysql #onde que é gravado a informação
+      volumes: #criando uma spec de volume - no mesmo nível que containers
+        - name: mysql-volume #esse name precisa ser o mesmo que o  definido em VolumeMounts.
+          persistentVolumeClaim:
+            claimName: mysql-pvc #pegar o mesmo nome que foi definido em configuracoes
+
+
+
+            #Agora já temos o arquivo de deployment configurado com o secret e volume.

@@ -5,18 +5,34 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: myapp
+      app: wordpress-deployment
   template:
     metadata:
       labels:
-        app: myapp
+        app: wordpress-deployment
     spec:
       containers:
-      - name: myapp
-        image: <Image>
+      - name: wordpress-image
+        image: wordpress:4.8-apache
         resources:
           limits:
-            memory: "128Mi"
+            memory: "512Mi"
             cpu: "500m"
         ports:
-        - containerPort: <Port>
+        - containerPort: 80
+        env: #variáveis de ambiente que serão necessárias
+          - name: WORDPRESS_DB_HOST
+            value: mysql-deployment #qual o host do nosso banco de dados dentro do kubernetes? Esse valor será dado pelo service.
+          - name: WORDPRESS_DB_PASSWORD
+            #value: wordpress-2020
+            valueFrom: #após configuração da secret no arquivo de configurações, vamos utilizar o valueFrom para acessá-las
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+      volumeMounts: #configurando os volumes que foram definidos em configuracoes
+        - name: wordpress-volume
+          mountPath: /var/www/html #onde que é gravado a informação
+      volumes: #criando uma spec de volume - no mesmo nível que containers
+        - name: wordpress-volume #mesmo nome do volumeMounts
+          persistentVolumeClaim:
+              claimName: wordpress-pvc #pegar o mesmo nome que foi definido em configuracoes

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service #criando o service para gerenciar a rede dos nossos deployments - acesso ao bd, acesso externo etc.
+metadata:
+  name: mysql-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql-deployment #qual deployment que eu quero que seja ligado à minha service? Mesmo nome definido no deployments - pegar o nome de matchLabels
+  ports:
+  - port: 3306 #o mysql utiliza a 3306 como padrão
+    #targetPort: <Target Port> #não vamos utilizar! Ele serve para configurar porta de destino diferente a da porta de entrada. Tbm chamado de node port.
+#O tipo de service que estamos configurando aqui é chamado de clusterIP, por default ele é clusterIP. Não precisando especificar acima
+
+... #separando uma config da outra
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+spec:
+  type: LoadBalancer #Esse tipo é o responsável por fazer a comunicação com o mundo externo. Ele é o mais utilizado! Poderia utilizar o node Port também, mas o LoadBalancer é mais seguro e mais utilizado porque ele vai fazer o BALANCEAMENTO da carga e o kubernetes vai fazer isso automaticamente.
+  selector:
+    app: wordpress-deployment
+  ports:
+  - port: 80
+    #targetPort: <Target Port>
+
+
+#configuramos as nossas services com nossos deployments criados.

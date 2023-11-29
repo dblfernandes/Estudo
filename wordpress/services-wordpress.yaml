@@ -9,7 +9,7 @@ spec:
   ports:
   - port: 3306 #o mysql utiliza a 3306 como padrão
     #targetPort: <Target Port> #não vamos utilizar! Ele serve para configurar porta de destino diferente a da porta de entrada. Tbm chamado de node port.
-#O tipo de service que estamos configurando aqui é chamado de clusterIP, por default ele é clusterIP. Não precisando especificar acima
+#O tipo de service que estamos configurando aqui é chamado de clusterIP, por default ele é clusterIP. Não precisando especificar acima, caso queira configurar, ele fica abaixo de spec (type).
 
 ... #separando uma config da outra
 

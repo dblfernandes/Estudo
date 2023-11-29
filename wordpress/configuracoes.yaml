@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: mysql-secret
 type: Opaque
-data:
+stringData:
   password: wordpress-2020
 
 ...

@@ -29,7 +29,7 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: password
-      volumeMounts: #configurando os volumes que foram definidos em configuracoes
+        volumeMounts: #configurando os volumes que foram definidos em configuracoes
         - name: wordpress-volume
           mountPath: /var/www/html #onde que é gravado a informação
       volumes: #criando uma spec de volume - no mesmo nível que containers

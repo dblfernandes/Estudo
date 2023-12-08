@@ -6,20 +6,18 @@ type: Opaque
 stringData:
   password: wordpress-2020
 
-...
-#Unidade de volume
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
 spec:
   accessModes:
-    - ReadWriteMany #tipo de acesso de leitura, escrita várias vezes
-  resources: #Recursos
+    - ReadWriteMany
+  resources:
     requests:
       storage: 1Gi
-
-...
+---
 
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -27,10 +25,7 @@ metadata:
   name: wordpress-pvc
 spec:
   accessModes:
-    - ReadWriteMany #tipo de acesso de leitura, escrita várias vezes
-  resources: #Recursos
+    - ReadWriteMany
+  resources:
     requests:
       storage: 1Gi
-
-
-#depois de configurar os volumes é necessário montá-los dentro dos deployments.

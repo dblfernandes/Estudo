@@ -11,3 +11,7 @@ repositório para armazenar projetos de estudo.
     - Digite 'minikube status' (caso já tenha instalado do minikube (minikube start))
 
     
+
+#Entendendo os objetos do Kubernetes
+
+https://kubernetes.io/pt-br/docs/concepts/overview/working-with-objects/kubernetes-objects/
